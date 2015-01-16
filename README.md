@@ -2,7 +2,7 @@
 
 This project's goal is to make a centralized home network in line with the Internet of Things ideology. There is no specific 'end result' I am looking for with this project. Instead I want to creat a central server and a mesh of networked sensors, devices, and services to bring the home into the modern day. 
 
-Proposed Modules:
+**Proposed Modules:**
 * Smart thermostat
 * Wireless lights and outlets
 * Local backup and multimedia server
@@ -10,7 +10,7 @@ Proposed Modules:
 * Remotely accessible todo and grocery lists
 * And much, much more
 
-Current Status:
+**Current Status:**
     Server:
         Very much under developement. Will run on a Linux box, hosting an InfluxDB time-series database for sensor logging.
         Probably will be an Express Node.js server.
