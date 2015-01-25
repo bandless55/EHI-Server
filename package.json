@@ -1,0 +1,25 @@
+{
+  "name": "HomeServer",
+  "version": "0.0.1",
+  "description": "A IoT server",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bandless55/homeserver.git"
+  },
+  "keywords": [
+    "IoT"
+  ],
+  "author": "",
+  "license": "none",
+  "bugs": {
+    "url": "https://github.com/bandless55/homeserver/issues"
+  },
+  "homepage": "https://github.com/bandless55/homeserver",
+  "devDependencies": {
+    "jshint": "^2.6.0"
+  }
+}
