@@ -1,4 +1,4 @@
-#Home Server
+#EHI Server
 
 This project's goal is to make a centralized home network in line with the Internet of Things ideology. There is no specific 'end result' I am looking for with this project. Instead I want to creat a central server and a mesh of networked sensors, devices, and services to bring the home into the modern day. 
 
