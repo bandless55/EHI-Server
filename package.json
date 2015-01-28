@@ -1,5 +1,5 @@
 {
-  "name": "HomeServer",
+  "name": "EHI-Server",
   "version": "0.0.1",
   "description": "A IoT server",
   "main": "main.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bandless55/homeserver.git"
+    "url": "https://github.com/ExtensibleHomeInterface/EHI-Server"
   },
   "keywords": [
     "IoT"
@@ -16,9 +16,9 @@
   "author": "",
   "license": "none",
   "bugs": {
-    "url": "https://github.com/bandless55/homeserver/issues"
+    "url": "https://github.com/ExtensibleHomeInterface/EHI-Server/issues"
   },
-  "homepage": "https://github.com/bandless55/homeserver",
+  "homepage": "https://github.com/ExtensibleHomeInterface/EHI-Server/wiki",
   "devDependencies": {
     "jshint": "^2.6.0"
   },
