@@ -13,7 +13,7 @@ function Server(){
  */
 Server.prototype.init = function(){
 	
-}
+};
 
 var self = new Server();
 

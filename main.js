@@ -1,4 +1,3 @@
-
 //Main entry point for the server
 
 //all the main component imports
@@ -10,5 +9,5 @@ var webServer = require('web-server/Server.js');
 //So I assume it is a singleton and it exports the main server Object
 
 
-//This should start the main
+//This should start the main web server
 webServer.init();
