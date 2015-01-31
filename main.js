@@ -1,7 +1,8 @@
 //Main entry point for the server
 
 //all the main component imports
-var webServer = require('web-server/Server.js');
+var webServer = require('./web-server/Server.js');
+var Prefernces = require('./Preferences/PreferencesManager');
 
 //initialize in order
 //(Server should probably be a singleton since we dont want to
@@ -11,3 +12,4 @@ var webServer = require('web-server/Server.js');
 
 //This should start the main web server
 webServer.init();
+Prefernces.load();
