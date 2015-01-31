@@ -2,7 +2,11 @@
 
 //all the main component imports
 var webServer = require('./web-server/Server.js');
-var Prefernces = require('./Preferences/PreferencesManager');
+//var Preferences = require('./Preferences/PreferencesManager');
+var thermostatModule = require('./modules/thermostat/thermostat');
+
+thermostatModule.startLogging();
+
 
 //initialize in order
 //(Server should probably be a singleton since we dont want to
@@ -11,5 +15,5 @@ var Prefernces = require('./Preferences/PreferencesManager');
 
 
 //This should start the main web server
+//Preferences.load();
 webServer.init();
-Prefernces.load();

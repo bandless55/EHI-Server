@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <script type="text/javascript" src="js/dygraph.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+    </head>
+    <body>
+        <div id="graph" style="width:800px; height:300px"></div>
+        
+        <script type="text/javascript">
+            window.onload = function(){
+                var g;
+                var data = new Array([]);
+                $.getJSON('/thermostatData', function(data){
+                    var len = data.length;
+                    for(var i=0; i<len; i++){
+                        data[i][0] = new Date(data[i][0]);
+                        data[i][1] = data[i][2];
+                    }     
+                    g = new Dygraph(document.getElementById("graph"), data.splice(1,1));
+                });
+
+                setInterval(function(){
+                    $.getJSON('/thermostatData', function(data){
+                        var len = data.length;
+                        for(var i=0; i<len; i++){
+                            data[i][0] = new Date(data[i][0]);
+                            data[i][1] = data[i][2];
+                        }
+                        g.updateOptions({'file':data});
+                    });
+                }, 5000);   
+            };
+        </script>
+
+    </body>
+</html>

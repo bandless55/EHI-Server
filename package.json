@@ -23,8 +23,9 @@
     "jshint": "^2.6.0"
   },
   "dependencies": {
+    "bluebird": "~2.9.3",
     "express": "^4.11.1",
     "express-handlebars": "^1.1.0",
-    "bluebird": "~2.9.3"
+    "influx": "^3.2.0"
   }
 }
