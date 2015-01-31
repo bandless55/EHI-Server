@@ -1,7 +1,7 @@
 //Main entry point for the server
 
 //all the main component imports
-var webServer = require('web-server/Server.js');
+var webServer = require('./web-server/Server.js');
 
 //initialize in order
 //(Server should probably be a singleton since we dont want to

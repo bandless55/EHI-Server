@@ -23,6 +23,7 @@
     "jshint": "^2.6.0"
   },
   "dependencies": {
-    "express": "^4.11.1"
+    "express": "^4.11.1",
+    "bluebird": "~2.9.3"
   }
 }
