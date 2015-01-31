@@ -2,16 +2,18 @@
 //to/from the the config preferences file
 var fs = require('fs');
 var Promise = require('bluebird');
+
 //turn callback async code to be Promise based
 Promise.promisifyAll(fs);
 
 var _preferences;
+var _loading = false;
 
 /**
  * @private
  */
 function _loadPrefFile(){
-	fs.readFile('../config.json')
+	fs.readFileAsync('config.json')
 	.then( function(value){
 		try{
 			_preferences = JSON.parse(value);
@@ -21,6 +23,17 @@ function _loadPrefFile(){
 	}, function(reason){
 		throw new Error(reason);
 	});
+}
+
+/**
+ * Loads the preferences files
+ */
+function load(){
+	if(_loading === true){
+		return false;
+	}
+	_loading = true;
+	_loadPrefFile();
 }
 
 /**
@@ -40,7 +53,7 @@ function _writePrefFile(){
  */
 function get(context){
 	if(_preferences === null){
-		_loadPrefFile();
+		load();
 		return;
 	}
 	
@@ -59,7 +72,7 @@ function get(context){
  */
 function set(context, key, value){
 	if(_preferences === null){
-		_loadPrefFile();
+		load();
 		return;
 	} else {
 		if(context){
@@ -83,6 +96,7 @@ function isReady(){
 	return true;
 }
 
+module.exports.load = load;
 module.exports.get = get;
 module.exports.set = set;
 module.exports.isReady = isReady;
