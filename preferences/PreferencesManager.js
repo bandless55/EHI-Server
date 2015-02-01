@@ -13,8 +13,9 @@ var _loading = false;
  * @private
  */
 function _loadPrefFile(){
-	fs.readFileAsync('config.json')
+	return fs.readFileAsync('config.json')
 	.then( function(value){
+		console.log("File loaded");
 		try{
 			_preferences = JSON.parse(value);
 		}catch(e){
@@ -33,7 +34,7 @@ function load(){
 		return false;
 	}
 	_loading = true;
-	_loadPrefFile();
+	return _loadPrefFile();
 }
 
 /**
@@ -58,9 +59,9 @@ function get(context){
 	}
 	
 	if(context === null){
-		return _preferences;
+		return Promise.resolve(_preferences);
 	} else {
-		return _preferences[context];
+		return Promise.resolve(_preferences[context]);
 	}
 }
 
