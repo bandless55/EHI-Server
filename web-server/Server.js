@@ -1,4 +1,5 @@
 var express = require('express');
+var exphb   = require('express-handlebars');
 
 /**
  * The main web server. Handles routing incoming HTTP requests
@@ -6,6 +7,8 @@ var express = require('express');
  */
 function Server(){
 	//add needed variables here, but dont start the server yet.
+    this.app = express();
+    this.app.engine('handlebars'
 }
 
 /**
