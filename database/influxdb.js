@@ -1,5 +1,5 @@
 var influx = require('influx');
-var preferences = require('../Preferences/PreferencesManager');
+var preferences = require('../preferences/PreferencesManager');
 
 
 /**
@@ -7,7 +7,7 @@ var preferences = require('../Preferences/PreferencesManager');
  * @constructor
  */
 function Database(){
-    
+	this.db;
 }
 
 
@@ -15,13 +15,25 @@ function Database(){
  * Initialize the database
  */
 Database.prototype.init = function(){
-    this.db = influx(preferences.get('database'));
-    
-    this.query = 'SELECT currTemp FROM thermostat';
-    this.db.query(this.query, function(idk, data){
-        console.log(data[0]);
-    });
+	this.db = influx(preferences.get('database'));
 };
+
+/**
+ * Queries the database 
+ * @param {string} queryString - Query to execute
+ */
+Database.prototype.query = function(queryString){
+	this.db.query(queryString);
+}
+
+/**
+ * Writes a value to the database
+ * @param {string} series - name of the series to write to
+ * @param {Object} value - value to be written in a key/value format
+ */
+Database.prototype.writeValue(series, value){
+	this.db.writePoint(series, value);
+}
 
 var self = new Database();
 module.exports = self;
