@@ -14,17 +14,16 @@
                     var len = data.length;
                     for(var i=0; i<len; i++){
                         data[i][0] = new Date(data[i][0]);
-                        data[i][1] = data[i][2];
+                        data[i].splice(1,1);
                     }     
-                    g = new Dygraph(document.getElementById("graph"), data.splice(1,1));
+                    g = new Dygraph(document.getElementById("graph"), data);
                 });
-
                 setInterval(function(){
                     $.getJSON('/thermostatData', function(data){
                         var len = data.length;
                         for(var i=0; i<len; i++){
                             data[i][0] = new Date(data[i][0]);
-                            data[i][1] = data[i][2];
+                            data[i].splice(1,1);
                         }
                         g.updateOptions({'file':data});
                     });
