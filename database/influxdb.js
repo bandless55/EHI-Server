@@ -1,6 +1,8 @@
 var influx = require('influx');
 var preferences = require('../preferences/PreferencesManager');
 
+var Promise = require('bluebird');
+
 
 /**
  * The database wrapper. Handles writing and querying of InfluxDB
@@ -16,6 +18,7 @@ function Database(){
  */
 Database.prototype.init = function(){
 	this.db = influx(preferences.get('database'));
+	this.db.query = Promise.promisify(this.db.query);
 };
 
 /**
@@ -23,7 +26,7 @@ Database.prototype.init = function(){
  * @param {string} queryString - Query to execute
  */
 Database.prototype.query = function(queryString){
-	this.db.query(queryString);
+	return this.db.query(queryString);
 };
 
 /**
@@ -33,10 +36,6 @@ Database.prototype.query = function(queryString){
  */
 Database.prototype.writeValue = function(series, value){
 	this.db.writePoint(series, value);
-};
-
-Database.prototype.readSeries = function(){
-	
 };
 
 var self = new Database();
