@@ -28,6 +28,7 @@ function _loadPrefFile(){
 
 /**
  * Loads the preferences files
+ * @returns {Promise} a promise representing the loading state of Preferences
  */
 function load(){
 	if(_loading === true){
@@ -49,30 +50,30 @@ function _writePrefFile(){
 
 /**
  * Returns the data read from the preferences file
- * @param {string} context The name of the preference context
+ * @param {string} [context] - The name of the preference context
  * @returns {Object|null} Object or null if Preferences aren't loaded
  */
 function get(context){
-	if(_preferences === null){
+	if(_preferences === undefined){
 		load();
 		return;
 	}
 	
-	if(context === null){
-		return Promise.resolve(_preferences);
+	if(context === undefined){
+		return _preferences;
 	} else {
-		return Promise.resolve(_preferences[context]);
+		return _preferences[context];
 	}
 }
 
 /**
  * Writes a preference to the config file
- * @param {string} context the name of the context to write to
+ * @param {string} [context] the name of the context to write to
  * @param {string} key the name of the key
  * @param {string} value the value for the key to be written
  */
 function set(context, key, value){
-	if(_preferences === null){
+	if(_preferences === undefined){
 		load();
 		return;
 	} else {
@@ -90,7 +91,7 @@ function set(context, key, value){
  * @returns {bool}
  */
 function isReady(){
-	if(_preferences === null){
+	if(_preferences === undefined){
 		return false;
 	}
 	
