@@ -26,6 +26,7 @@
     "bluebird": "~2.9.3",
     "express": "^4.11.1",
     "express-handlebars": "^1.1.0",
-    "influx": "^3.2.0"
+    "influx": "^3.2.0",
+    "node-dir": "^0.1.6"
   }
 }
