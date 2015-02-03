@@ -7,7 +7,7 @@ var preferences = require('../preferences/PreferencesManager');
  * @constructor
  */
 function Database(){
-	this.db;
+	this.db = null;
 }
 
 
@@ -24,16 +24,20 @@ Database.prototype.init = function(){
  */
 Database.prototype.query = function(queryString){
 	this.db.query(queryString);
-}
+};
 
 /**
  * Writes a value to the database
  * @param {string} series - name of the series to write to
  * @param {Object} value - value to be written in a key/value format
  */
-Database.prototype.writeValue(series, value){
+Database.prototype.writeValue = function(series, value){
 	this.db.writePoint(series, value);
-}
+};
+
+Database.prototype.readSeries = function(){
+	
+};
 
 var self = new Database();
 module.exports = self;
