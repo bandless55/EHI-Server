@@ -18,7 +18,7 @@
                   <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Entry</th>
+                    <th>Author</th>
                     <th>Version</th>
                     <th></th>
                   </tr>
@@ -26,11 +26,11 @@
                   <tbody>
                     {{#each modules}}
                       <tr>
-                        <td>{{@index}}</td>
+                        <td>{{increment @index}}</td>
                         <td>{{metaData.name}}</td>
-                        <td>{{metaData.entry}}</td>
+                        <td>{{metaData.author}}</td>
                         <td>{{metaData.version}}</td>
-                        <td>pasta button</td>
+                        <td><a class="btn btn-info btn-sm" href"#" role="button">View</a></td>
                       </tr>
                     {{/each}}
                   </tbody>

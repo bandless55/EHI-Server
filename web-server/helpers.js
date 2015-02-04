@@ -1,4 +1,3 @@
-exports.debug = function(data){
-    console.log(data);
-    console.log(this);
+exports.increment = function(data){
+    return data + 1;
 };
