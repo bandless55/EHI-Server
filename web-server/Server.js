@@ -2,6 +2,7 @@ var path    = require('path');
 var express = require('express');
 var exphbs  = require('express-handlebars');
 var helpers = require('./helpers');
+var moduleLoader = require('../module_loader/module_loader');
 
 /**
  * The main web server. Handles routing incoming HTTP requests
@@ -21,11 +22,14 @@ function Server(){
     this.app.use(express.static(this.publicPath));
 
     this.app.get('/', function(req, res){
-        res.render('dashboard', 
-            {active : {active_dashboard : true}});
+        res.render('dashboard',
+            {active  : {active_dashboard : true},
+             sidebar : {value : 'yes'},
+             modules : moduleLoader.getModules()
+            });
     });
     this.app.get('/modules', function(req, res){
-        res.render('modules', 
+        res.render('modules',
             {active : {active_modules : true}});
     });
     this.app.get('/settings', function(req, res){
@@ -38,6 +42,7 @@ function Server(){
  * Starts up the web server, begins the port listening process.
  */
 Server.prototype.init = function(){
+    console.log('Web server running on port 3000');
 	this.app.listen(3000);
 };
 

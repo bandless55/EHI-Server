@@ -10,8 +10,33 @@
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       <h1 class="page-header">Dashboard</h1>
-
-      <h2 class="sub-header">Section title</h2>
+        {{#if modules}}
+          <h2 class="sub-header">Running Modules</h2>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Entry</th>
+                    <th>Version</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                  <tbody>
+                    {{#each modules}}
+                      <tr>
+                        <td>{{@index}}</td>
+                        <td>{{metaData.name}}</td>
+                        <td>{{metaData.entry}}</td>
+                        <td>{{metaData.version}}</td>
+                        <td>pasta button</td>
+                      </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+            </div>
+        {{/if}}
     </div>
   </div>
 </div>
