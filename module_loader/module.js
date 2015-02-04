@@ -7,17 +7,12 @@ var path = require('path');
  */
 
 function Module(config) {
-	var dir = "../modules";
-	var send; // TODO: document
-	var get; //  TODO: document
- }
+}
 
 /**
  * The module initializes by requiring the implementation file and wrapping
  * the implementation functions for communicating with the database.
  */
 Module.prototype.init = function() {
-	var imp = require(path.resolve(dir, config.name));
-	send = imp.send;
-	get = imp.get;
+    console.log(this.metaData.name);
 };

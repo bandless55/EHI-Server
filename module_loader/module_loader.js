@@ -1,7 +1,7 @@
-var nodeDir = require('node-dir');
-// var fs = require('fs');
-var path = require('path');
-var module = require('module');
+//var nodeDir = require('node-dir');
+var fs             = require('fs');
+var path           = require('path');
+var internalModule = require('./module'); 
 
 /**
  * The module loader. Scans the Server for modules and initializes them as
@@ -9,8 +9,6 @@ var module = require('module');
  * @constructor
  */
 function ModuleLoader() {
-	var dir = "../modules";
-	var modules = [];
 }
 
 /**
@@ -19,28 +17,23 @@ function ModuleLoader() {
  * initialize themselves.
  */
 ModuleLoader.prototype.init = function() {
-// async solution that doesn't scale well
-/*	fs.readdir(dir, function(err, filenames) {
-		if (err) throw err;
-		filenames.forEach(function(name) {
-			var path = path.resolve(dir, name);
-			modules.push(Module(JSON.parse(fs.readfile(path))));
-		});
-	});
-*/
-// "sequential" (async or [probably]sync?) solution that scales well
-// node-dir supports async dir scanning but without options -> wtf?
-	nodeDir.readFiles(dir, {
-		matchDir: /[\w.]+module/,
-		match: /[\w.]+json/ },
-		function(err, file, next) {
-			if (err) throw err;
-			modules.push(module.Module(JSON.parse(file)));
-			next();
-		});
-// see node-walk for more advanced async solution that scales well
-// see simple node-walk example:
-// http://stackoverflow.com/questions/2727167/getting-all-filenames-in-a-directory-with-node-js
+    modules = [];
+    var dir     = path.resolve(__dirname, '../modules');
+    
+    fs.readdir(dir, function(err, files){
+        files.forEach(function(element, index, array){
+            fs.readFile(path.join(dir, element, 'config.json'), function(err, data){
+                if(err) console.error(err);
+                var toPush = Object.create(internalModule);
+                toPush.metaData = JSON.parse(data);
+                modules.push(toPush);
+            }); 
+        });
+    });
+};
+
+ModuleLoader.prototype.getModules = function(){
+    return modules;
 };
 
 var self = new ModuleLoader();
