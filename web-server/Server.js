@@ -1,7 +1,7 @@
-var path    = require('path');
-var express = require('express');
-var exphbs  = require('express-handlebars');
-var helpers = require('./helpers');
+var path         = require('path');
+var express      = require('express');
+var exphbs       = require('express-handlebars');
+var helpers      = require('./helpers');
 var moduleLoader = require('../module_loader/module_loader');
 
 /**
@@ -9,29 +9,43 @@ var moduleLoader = require('../module_loader/module_loader');
  * @constructor
  */
 function Server(){
-    this.publicPath = path.resolve(__dirname+'/../public/');
+    this.app = express();
+    this.app.set('views', path.resolve(__dirname+'/views'));
+    this.publicPath = path.resolve(__dirname+'/public/');
     this.hbs = exphbs.create({
         defaultLayout : 'main',
-        helpers       : helpers
+        helpers       : helpers,
+        layoutsDir    : path.resolve(__dirname+"/views/layouts/"),
+        partialsDir   : path.resolve(__dirname+"/views/partials/")
     });
-    
-    this.app = express();
     this.app.engine('handlebars', this.hbs.engine);
     this.app.set('view engine', 'handlebars');
-
     this.app.use(express.static(this.publicPath));
 
+    
     this.app.get('/', function(req, res){
-        res.render('dashboard',
-            {active  : {active_dashboard : true},
-             sidebar : {value : 'yes'},
-             modules : moduleLoader.getModules()
+        res.render('dashboard', {
+            active  : {active_dashboard : true},
+            sidebar : [{value : "Overview", href : "/", active : true}],
+            modules : moduleLoader.getModules()
             });
+    });    
+    
+    this.app.get('/modules/:index', function(req, res){
+        res.render('modules', {
+            sidebar : {modules : moduleLoader.getModules(), index : req.params.index},
+            current : moduleLoader.getModules()[req.params.index]
+        }); 
     });
-    this.app.get('/modules', function(req, res){
-        res.render('modules',
-            {active : {active_modules : true}});
+    this.app.get('/modules/:index/graphs', function(req, res){
+        moduleLoader.getModules()[req.params.index].getData(req.query.varName, function(data){
+            res.json(data[0].points);
+        });
     });
+    
+    
+    
+    
     this.app.get('/settings', function(req, res){
         res.render('settings', 
             {active : {active_settings : true}});

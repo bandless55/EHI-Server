@@ -24,8 +24,11 @@ ModuleLoader.prototype.init = function() {
         files.forEach(function(element, index, array){
             fs.readFile(path.join(dir, element, 'config.json'), function(err, data){
                 if(err) console.error(err);
-                var toPush = Object.create(internalModule);
-                toPush.metaData = JSON.parse(data);
+                var config = JSON.parse(data);
+                var nameNoExt = config.entry.substring(0, config.entry.length-3);
+                var toPush = require('../modules/'+element+'/'+nameNoExt);
+                toPush.metaData = config;
+                toPush.getData = require('../modules/'+element+'/'+nameNoExt).getData;
                 modules.push(toPush);
             }); 
         });

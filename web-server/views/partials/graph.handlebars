@@ -1,0 +1,35 @@
+{{#each this}}
+  <div class="col-sm-12 col-md-6">
+    <div class="panel panel-info">
+      <div class="panel-heading text-center"><h4>{{title}}</h4></div>
+      <div class="graph" id="graph{{@index}}"></div>
+    </div>
+  </div>
+{{/each}}
+
+<script>
+    window.onload = function(){
+        {{#each this}}
+            var g{{@index}};
+            $.getJSON(document.URL+'/graphs?varName={{var}}', function(data){
+                var len = data.length;
+                for(var i=0; i<len; i++){
+                    data[i][0] = new Date(data[i][0]);
+                    data[i].splice(1,1);
+                }     
+                g{{@index}} = new Dygraph($("#graph{{@index}}")[0], data, 
+                    {labels : ["Time", "{{var}}"]});
+            });
+            setInterval(function(){
+                $.getJSON(document.URL+'/graphs?varName={{var}}', function(data){
+                    var len = data.length;
+                    for(var i=0; i<len; i++){
+                        data[i][0] = new Date(data[i][0]);
+                        data[i].splice(1,1);
+                    }
+                    g{{@index}}.updateOptions({'file':data});
+                });
+            }, 5000);
+        {{/each}}
+    };
+</script>

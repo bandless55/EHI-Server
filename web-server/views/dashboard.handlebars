@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    {{#if sidebar}}
+      <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+          {{#each sidebar}}
+            <li class="{{#if active}}active{{/if}}"><a href="{{href}}">{{value}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+    {{/if}}
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h1 class="page-header">Dashboard</h1>
+        {{#if modules}}
+          <div class="panel panel-info">
+              <div class="panel-heading text-center"><h3 style="margin-top:10px;">Running Modules</h3></div>
+                <div class="table-responsive" style="padding-left:15px; padding-right:15px;">
+                  <table class="table table">
+                    <thead>
+                      <tr>
+                      <th >#</th>
+                      <th>Name</th>
+                      <th>Author</th>
+                      <th>Version</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                    <tbody>
+                      {{#each modules}}
+                        <tr>
+                          <td style="vertical-align:middle">{{increment @index}}</td>
+                          <td style="vertical-align:middle">{{metaData.name}}</td>
+                          <td style="vertical-align:middle">{{metaData.author}}</td>
+                          <td style="vertical-align:middle">{{metaData.version}}</td>
+                          <td><a class="btn btn-info btn-sm" href="/modules/{{@index}}" role="button">View</a></td>
+                        </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+              </div>
+          </div>
+        {{/if}}
+      </div>
+  </div>
+</div>
