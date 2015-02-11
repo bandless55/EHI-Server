@@ -1,0 +1,46 @@
+{{#each this}}
+  <div class="col-xs-6">
+    <div class="panel panel-info">
+      <div class="panel-heading text-center"><h1 class="panel-title">{{title}}</h1></div>
+      <div class="panel-body">
+        <form id="form{{@index}}" action="{{getURL}}" method="POST">
+          {{#each inputs}}
+            <div class="col-sm-12 col-md-6">
+              {{#isNumber type}}
+                <div class="text-center"><strong class="h4">{{title}}</strong></div><br>
+                <input class="input-lg form-control" type="{{type}}" name="{{name}}" min="{{min}}" max="{{max}}" value="{{default}}">
+              {{/isNumber}}
+              {{#isRadio type}}
+                <div class="text-center"><strong class="h4">{{title}}</strong></div><br>
+                <div class="text-center">
+                  <div class="btn-group btn-group-lg" data-toggle="buttons">
+                      {{#each inputs}}
+                        <label class="btn btn-primary {{#if default}}active{{/if}}">
+                          <input class="btn" type="{{../type}}" name="{{../name}}" value="{{value}}" {{#if default}}checked{{/if}}>{{text}}
+                        </label>
+                      {{/each}}
+                    </div>
+                  </div>
+              {{/isRadio}}
+            </div>
+          {{/each}}
+          <div class="col-xs-12" style="margin:25px;">
+            <div class="text-center">
+              <input id="submit{{@index}}" class="btn btn-lg btn-success" type="submit">
+            </div> 
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/javascript">
+    $(function() {
+        $('#form{{@index}}').submit(function(event) {
+            event.preventDefault();
+            var data = $('#form{{@index}}').serialize();
+            $.post(event.currentTarget.action, data);
+        });
+    });
+  </script>
+{{/each}}

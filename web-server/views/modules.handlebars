@@ -10,8 +10,12 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       <h1 class="page-header">{{current.metaData.name}} Module</h1>
         {{#if current.metaData.graphs}}
-          <h2 class="sub-header">Graphs</h2>
+          <h2 class="sub-header">Graphs <small>24 hrs</small></h2>
             {{> graph current.metaData.graphs}}
+        {{/if}}
+        {{#if current.metaData.controls}}
+          <h2 class="sub-header">Control</h2>
+            {{> controls current.metaData.controls}}
         {{/if}}
     </div>
   </div>

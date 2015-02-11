@@ -1,5 +1,6 @@
 var path         = require('path');
 var express      = require('express');
+var bodyParser   = require('body-parser');
 var exphbs       = require('express-handlebars');
 var helpers      = require('./helpers');
 var moduleLoader = require('../module_loader/module_loader');
@@ -21,6 +22,7 @@ function Server(){
     this.app.engine('handlebars', this.hbs.engine);
     this.app.set('view engine', 'handlebars');
     this.app.use(express.static(this.publicPath));
+    this.postParser = bodyParser.urlencoded({ extended: false });
 
     
     this.app.get('/', function(req, res){
@@ -42,8 +44,13 @@ function Server(){
             res.json(data[0].points);
         });
     });
-    
-    
+    this.app.post('/modules/:index', this.postParser, function(req, res){
+        if (!req.body) res.sendStatus(400).end();
+        else {
+            moduleLoader.getModules()[req.params.index].sendComand(req.body);
+            res.end();
+        }
+    });
     
     
     this.app.get('/settings', function(req, res){
